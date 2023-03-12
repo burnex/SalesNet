@@ -19,7 +19,13 @@ namespace SalesNet.Server.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAsync()
         {
-            return Ok(await _context.Countries.ToListAsync());
+            return Ok(await _context.Countries.Include(t=>t.States).ToListAsync());
+        }
+
+        [HttpGet("full")]
+        public async Task<ActionResult> GetFullAsync()
+        {
+            return Ok(await _context.Countries.Include(t => t.States).ThenInclude(x=>x.Cities).ToListAsync());
         }
 
         [HttpGet("{id:int}")]
