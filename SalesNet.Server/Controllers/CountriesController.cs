@@ -22,7 +22,7 @@ namespace SalesNet.Server.Controllers
             return Ok(await _context.Countries.ToListAsync());
         }
 
-        [HttpGet("id:int")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult> GetAsync(int id)
         {
             var country = await _context.Countries.FirstOrDefaultAsync(x=>x.Id == id);
@@ -49,7 +49,7 @@ namespace SalesNet.Server.Controllers
             return Ok();
         }
 
-        [HttpDelete("id:int")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             var country = await _context.Countries.FirstOrDefaultAsync(x => x.Id == id);
