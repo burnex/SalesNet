@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using CurrieTechnologies.Razor.SweetAlert2;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using SalesNet.Web;
 using SalesNet.Web.Repositories;
@@ -13,5 +14,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 //Scoped: Se usa cuando se crea una instancia de un objeto
 //Transient: Solo cuando se requiere usar una vez
 //Singleton: Se crea una instancia y se queda en memoria, consume memoria
+
+builder.Services.AddSweetAlert2();
 await builder.Build().RunAsync();
 
