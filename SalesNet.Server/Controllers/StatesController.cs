@@ -1,56 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SalesNet.Server.Data;
-using SalesNet.Shared.Entities;
+﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SalesNet.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CountriesController : ControllerBase
+    public class StatesController : ControllerBase
     {
         public readonly DataContext _context;
 
-        public CountriesController(DataContext context)
+        public StatesController(DataContext context)
         {
             _context = context;
         }
 
+
         [HttpGet]
         public async Task<ActionResult> GetAsync()
         {
-            return Ok(await _context.Countries.Include(t=>t.States).ToListAsync());
+            return Ok(await _context.States.Include(t => t.Cities).ToListAsync());
         }
 
-        
-        [HttpGet("full")]
-        public async Task<ActionResult> GetFullAsync()
-        {
-            return Ok(await _context.Countries
-                .Include(t => t.States!)
-                .ThenInclude(x=>x.Cities)
-                .ToListAsync());
-        }
-        
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult> GetAsync(int id)
         {
-            var country = await _context.Countries
-                .Include(x=>x.States!)
-                .ThenInclude(x => x.Cities)
+            var model = await _context.States
+                .Include(x => x.Cities)
                 .FirstOrDefaultAsync(x => x.Id == id);
-            if (country is null)
+            if (model is null)
             {
                 return NotFound();
             }
-            return Ok(country);
+            return Ok(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync(Country country)
+        public async Task<ActionResult> PostAsync(State model)
         {
-            _context.Add(country);
+            _context.Add(model);
 
             try
             {
@@ -61,7 +48,7 @@ namespace SalesNet.Server.Controllers
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe un país con el mismo nombre.");
+                    return BadRequest("Ya existe un Departamento / Estado con el mismo nombre.");
                 }
                 else
                 {
@@ -75,9 +62,9 @@ namespace SalesNet.Server.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutAsync(Country country)
+        public async Task<ActionResult> PutAsync(State model)
         {
-            _context.Update(country);
+            _context.Update(model);
             try
             {
                 await _context.SaveChangesAsync();
@@ -87,7 +74,7 @@ namespace SalesNet.Server.Controllers
             {
                 if (dbUpdateException.InnerException!.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe un registro con el mismo nombre.");
+                    return BadRequest("Ya existe un Departamento / Estado con el mismo nombre.");
                 }
                 else
                 {
@@ -103,12 +90,12 @@ namespace SalesNet.Server.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            var country = await _context.Countries.FirstOrDefaultAsync(x => x.Id == id);
-            if (country is null)
+            var model = await _context.States.FirstOrDefaultAsync(x => x.Id == id);
+            if (model is null)
             {
                 return NotFound();
             }
-            _context.Remove(country);
+            _context.Remove(model);
             await _context.SaveChangesAsync();
             return NoContent();
         }

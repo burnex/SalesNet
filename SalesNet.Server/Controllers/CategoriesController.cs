@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SalesNet.Server.Data;
-using SalesNet.Shared.Entities;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SalesNet.Server.Controllers
 {
     [ApiController]
-    [Route("/api/categories")]
+    [Route("api/[controller]")]
     public class CategoriesController : ControllerBase
     {
         public readonly DataContext _context;
