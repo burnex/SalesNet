@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
-
-namespace SalesNet.Web.Repositories
+﻿namespace SalesNet.Web.Repositories
 {
     public class Repository : IRepository
     {
