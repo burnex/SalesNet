@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using SalesNet.Server.Data;
+using SalesNet.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=AzureConnection"));
 /*Se usa Transient porque solo lo necesito correr 1 vez*/
 builder.Services.AddTransient<SeedDb>();
+builder.Services.AddScoped<IApiService, ApiService>();
 
 var app = builder.Build();
 
