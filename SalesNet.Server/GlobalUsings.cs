@@ -6,3 +6,6 @@ global using System.Text;
 global using System.Text.Json;
 global using SalesNet.Server.Data;
 global using SalesNet.Shared.Entities;
+global using System;
+global using SalesNet.Server.Helpers;
+global using SalesNet.Shared.DTOs;

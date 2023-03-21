@@ -1,6 +1,4 @@
-﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace SalesNet.Server.Controllers
+﻿namespace SalesNet.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -15,10 +13,39 @@ namespace SalesNet.Server.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> GetAsync()
+        public async Task<ActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
-            return Ok(await _context.States.Include(t => t.Cities).ToListAsync());
+           var queryable = _context.States
+            .Include(x => x.Cities)
+            .Where(x => x.Country!.Id == pagination.Id)
+            .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
+            {
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+
+            return Ok(await queryable
+                .OrderBy(x => x.Name)
+                .Paginate(pagination)
+                .ToListAsync());
         }
+
+        [HttpGet("totalPages")]
+        public async Task<ActionResult> GetPages([FromQuery] PaginationDTO pagination)
+        {
+            var queryable = _context.States
+                .Where(x => x.Country!.Id == pagination.Id)
+                .AsQueryable();
+            if (!string.IsNullOrWhiteSpace(pagination.Filter))
+            {
+                queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+            double count = await queryable.CountAsync();
+            double totalPages = Math.Ceiling(count / pagination.RecordsNumber);
+            return Ok(totalPages);
+        }
+
 
 
         [HttpGet("{id:int}")]

@@ -23,11 +23,13 @@
     <None Remove="Data\" />
     <None Remove="Controllers\" />
     <None Remove="Services\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Services\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SalesNet.Shared\SalesNet.Shared.csproj">
