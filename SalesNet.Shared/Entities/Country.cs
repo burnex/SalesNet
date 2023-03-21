@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-
-namespace SalesNet.Shared.Entities
+﻿namespace SalesNet.Shared.Entities
 {
     public class Country
     {

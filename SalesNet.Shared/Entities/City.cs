@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-
-namespace SalesNet.Shared.Entities
+﻿namespace SalesNet.Shared.Entities
 {
     public class City
 	{
@@ -16,6 +12,8 @@ namespace SalesNet.Shared.Entities
         public int StateId { get; set; }
 
         public State? State { get; set; }
+        public ICollection<User>? Users { get; set; }
+
     }
 }
 
