@@ -38,14 +38,16 @@
 
             public async Task<User> GetUserAsync(string email)
             {
-                return await _context.Users
-                    .Include(u => u.City)
-                    .ThenInclude(c => c.State)
-                    .ThenInclude(s => s.Country)
-                    .FirstOrDefaultAsync(x => x.Email == email);
-            }
+            var user = await _context.Users
+                        .Include(u => u.City!)
+                        .ThenInclude(c => c.State!)
+                        .ThenInclude(s => s.Country!)
+                        .FirstOrDefaultAsync(u => u.Email! == email);
+            return user!;
 
-            public async Task<bool> IsUserInRoleAsync(User user, string roleName)
+        }
+
+        public async Task<bool> IsUserInRoleAsync(User user, string roleName)
             {
                 return await _userManager.IsInRoleAsync(user, roleName);
             }
