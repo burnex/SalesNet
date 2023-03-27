@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SalesNet.Shared.Entities;
-
-namespace SalesNet.Server.Data
+﻿namespace SalesNet.Server.Data
 {
     public class DataContext : DbContext
     {
