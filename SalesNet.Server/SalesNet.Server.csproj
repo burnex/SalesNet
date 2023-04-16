@@ -28,6 +28,8 @@
     <None Remove="Controllers\" />
     <None Remove="Services\" />
     <None Remove="Helpers\" />
+    <None Remove="Images\users\Liv.jpg" />
+    <None Remove="Images\users\LedysBedoya.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -39,5 +41,11 @@
     <ProjectReference Include="..\SalesNet.Shared\SalesNet.Shared.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\users\Liv.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\users\LedysBedoya.jpeg" />
   </ItemGroup>
 </Project>
