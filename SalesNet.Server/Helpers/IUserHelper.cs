@@ -1,5 +1,4 @@
-﻿using System;
-namespace SalesNet.Server.Helpers
+﻿namespace SalesNet.Server.Helpers
 {
     public interface IUserHelper
     {
@@ -12,6 +11,10 @@ namespace SalesNet.Server.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+        Task<Microsoft.AspNetCore.Identity.SignInResult> LoginAsync(LoginDTO model);
+
+        Task LogoutAsync();
+
     }
 }
 

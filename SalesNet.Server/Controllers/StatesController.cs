@@ -1,7 +1,11 @@
-﻿namespace SalesNet.Server.Controllers
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+
+namespace SalesNet.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class StatesController : ControllerBase
     {
         public readonly DataContext _context;
