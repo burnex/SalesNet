@@ -18,7 +18,14 @@ builder.Services.AddScoped<IRepository, Repository>();
 //Singleton: Se crea una instancia y se queda en memoria, consume memoria
 
 builder.Services.AddAuthorizationCore();
-builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
+
+
+builder.Services.AddScoped<AuthenticationProviderJWT>();
+builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
+builder.Services.AddScoped<ILoginService, AuthenticationProviderJWT>(x => x.GetRequiredService<AuthenticationProviderJWT>());
+
+
+//builder.Services.AddScoped<AuthenticationStateProvider, AuthenticationProviderTest>();
 
 
 builder.Services.AddSweetAlert2();
