@@ -1,4 +1,5 @@
-﻿using SalesNet.Server.Services;
+﻿using System.Runtime.InteropServices;
+using SalesNet.Server.Services;
 using SalesNet.Shared.Enums;
 using SalesNet.Shared.Responses;
 
@@ -94,7 +95,15 @@ namespace SalesNet.Server.Data
 
             foreach (string? image in images)
             {
-                var filePath = $"{Environment.CurrentDirectory}\\Images\\products\\{image}";
+                string filePath;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    filePath = $"{Environment.CurrentDirectory}\\Images\\products\\{image}";
+                }
+                else
+                {
+                    filePath = $"{Environment.CurrentDirectory}/Images/products/{image}";
+                }
                 var fileBytes = File.ReadAllBytes(filePath);
                 var imagePath = await _fileStorage.SaveFileAsync(fileBytes, "jpg", "products");
                 prodcut.ProductImages.Add(new ProductImage { Image = imagePath });
@@ -146,7 +155,15 @@ namespace SalesNet.Server.Data
                     city = await _context.Cities.FirstOrDefaultAsync();
                 }
 
-                var filePath = $"{Environment.CurrentDirectory}\\Images\\users\\{image}";
+                string filePath;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    filePath = $"{Environment.CurrentDirectory}\\Images\\users\\{image}";
+                }
+                else
+                {
+                    filePath = $"{Environment.CurrentDirectory}/Images/users/{image}";
+                }
                 var fileBytes = File.ReadAllBytes(filePath);
                 var imagePath = await _fileStorage.SaveFileAsync(fileBytes, "jpg", "users");
 

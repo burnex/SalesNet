@@ -147,6 +147,10 @@
     private List<City>? cities;
     private string? imageUrl;
 
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public bool IsAdmin { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -220,6 +224,15 @@
 
     private async Task CreteUserAsync()
     {
+        if (IsAdmin)
+        {
+            userDTO.UserType = UserType.Admin;
+        }
+        else
+        {
+            userDTO.UserType = UserType.User;
+        }
+
         userDTO.UserName = userDTO.Email;
         userDTO.UserType = UserType.User;
         //var responseHttp = await repository.Post<UserDTO, TokenDTO>("/api/accounts/CreateUser", userDTO);

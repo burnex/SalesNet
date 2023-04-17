@@ -40,6 +40,9 @@ namespace SalesNet.Shared.Entities
 
         [Display(Name = "Imagén")]
         public string MainImage => ProductImages == null ? string.Empty : ProductImages.FirstOrDefault()!.Image;
+        public ICollection<TemporalSale>? TemporalSales { get; set; }
+
+        public ICollection<SaleDetail>? SaleDetails { get; set; }
 
     }
 }

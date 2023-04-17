@@ -51,6 +51,7 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=AzureConnec
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IApiService, ApiService>();
 builder.Services.AddScoped<IFileStorage, FileStorage>();
+builder.Services.AddScoped<IOrdersHelper, OrdersHelper>();
 
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
